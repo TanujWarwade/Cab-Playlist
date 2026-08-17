@@ -1,0 +1,631 @@
+/* =========================================================
+   CAB PLAYLIST — Late Night Taxi & City Drive Aesthetic CSS
+   ========================================================= */
+
+/* Main Container */
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  padding-bottom: 20px;
+}
+
+/* Background Atmosphere */
+.city-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(255, 200, 0, 0.08), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.07), transparent 50%),
+    radial-gradient(circle at 20% 70%, rgba(255, 51, 68, 0.06), transparent 50%),
+    url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  filter: brightness(0.65) contrast(1.15) saturate(1.2);
+  transition: transform 10s ease-out;
+}
+
+.city-bg.playing {
+  transform: scale(1.03);
+}
+
+/* Rain FX Layer */
+.rain-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    175deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  opacity: 0.6;
+}
+
+/* Raindrops on glass effect */
+.rain-drops {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0);
+  background-size: 24px 24px;
+  opacity: 0.4;
+}
+
+/* --- HEADER BAR --- */
+header {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 28px;
+  z-index: 10;
+}
+
+.cab-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 18, 22, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 200, 0, 0.25);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00FF66;
+  box-shadow: 0 0 10px #00FF66;
+  animation: meterBlink 1.8s infinite;
+}
+
+.header-clock {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--cab-yellow);
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* YouTube Icon Dropdown Button */
+.yt-dropdown-wrap {
+  position: relative;
+}
+
+.yt-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.15);
+  border: 1.5px solid rgba(255, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  backdrop-filter: blur(10px);
+  padding: 0;
+}
+
+.yt-icon-btn:hover {
+  background: #FF0000;
+  border-color: #FF0000;
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.55), 0 0 40px rgba(255, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.yt-icon-svg {
+  width: 20px;
+  height: 20px;
+  color: #FF0000;
+  transition: color 0.22s ease;
+}
+
+.yt-icon-btn:hover .yt-icon-svg {
+  color: #fff;
+}
+
+.yt-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  background: rgba(14, 16, 20, 0.96);
+  border: 1px solid rgba(255, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  z-index: 100;
+  animation: dropIn 0.18s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.yt-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.18s ease;
+  letter-spacing: 0.02em;
+}
+
+.yt-dropdown-item:hover {
+  background: rgba(255, 0, 0, 0.15);
+  color: #FF4444;
+}
+
+.support-btn {
+  background: linear-gradient(135deg, #FFC800, #E6A100);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 14px rgba(255, 200, 0, 0.35);
+}
+
+/* --- HERO TITLE SECTION --- */
+.hero-title {
+  position: relative;
+  text-align: center;
+  z-index: 5;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.hero-title h1 {
+  font-family: 'Yatra One', cursive;
+  font-size: clamp(48px, 8.5vw, 110px);
+  line-height: 1.05;
+  color: var(--cream);
+  text-shadow: 
+    4px 4px 0 #D62828,
+    8px 8px 0 rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(255, 200, 0, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.hero-title p {
+  margin-top: 8px;
+  font-size: clamp(14px, 1.8vw, 18px);
+  color: var(--cab-yellow);
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* Playlist Switcher Tabs */
+.playlist-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.tab-btn {
+  background: rgba(18, 20, 26, 0.85);
+  border: 1px solid rgba(255, 200, 0, 0.3);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.tab-btn:hover {
+  border-color: var(--cab-yellow);
+  color: var(--cab-yellow);
+  box-shadow: 0 0 12px var(--cab-yellow-glow);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #FFC800, #E69D00);
+  color: #000;
+  font-weight: 700;
+  border-color: #FFF;
+  box-shadow: 0 0 18px var(--cab-yellow-glow);
+}
+
+/* Spotify Official Player Container */
+.spotify-player-box {
+  background: linear-gradient(165deg, #1f232d 0%, #12141a 100%);
+  border: 4px solid var(--cab-yellow);
+  border-radius: 16px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  padding: 12px;
+}
+
+.spotify-iframe-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.spotify-iframe-wrap iframe {
+  width: 100%;
+  height: 382px;
+  border: none;
+  display: block;
+}
+
+/* --- TAXI METER AUDIO PLAYER PANEL --- */
+.cab-player-container {
+  position: relative;
+  width: min(580px, 94vw);
+  z-index: 10;
+  margin-bottom: 25px;
+}
+
+/* Roof Taxi Light Indicator */
+.roof-light {
+  position: relative;
+  width: 220px;
+  margin: 0 auto -6px;
+  background: #181a20;
+  border: 3px solid var(--cab-yellow);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 6px 0;
+  text-align: center;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+  z-index: 4;
+  transition: all 0.3s ease;
+}
+
+.roof-light-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 200, 0, 0.5);
+  text-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.roof-light.hired {
+  background: linear-gradient(180deg, #FFC800, #D9A000);
+  border-color: #FFF5E4;
+  animation: taxiGlow 2s infinite alternate;
+}
+
+.roof-light.hired .roof-light-text {
+  color: #000000;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+}
+
+/* Main Meter Body Panel */
+.cab-meter-panel {
+  position: relative;
+  background: linear-gradient(165deg, #1f232d 0%, #12141a 100%);
+  border: 5px solid #2d3240;
+  border-radius: 16px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 0, 0, 0.8);
+  padding: 16px 20px 14px;
+}
+
+/* Taxi Checkered Trim */
+.checker-strip {
+  height: 10px;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  background-image: linear-gradient(45deg, #FFC800 25%, #101216 25%, #101216 50%, #FFC800 50%, #FFC800 75%, #101216 75%, #101216 100%);
+  background-size: 16px 16px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Top Meter Display HUD */
+.meter-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #090a0d;
+  border: 2px solid #222633;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-bottom: 14px;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.9);
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-label {
+  font-size: 10px;
+  color: #7a8299;
+  letter-spacing: 0.1em;
+}
+
+.hud-value {
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--meter-green);
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+.hud-value.status-on {
+  color: var(--cab-yellow);
+  text-shadow: 0 0 8px rgba(255, 200, 0, 0.4);
+}
+
+/* Media Controls Row */
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+/* Album Cover Thumbnail Box */
+.yt-screen {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--cab-yellow);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 6px 16px rgba(0,0,0,0.6);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.yt-screen.playing {
+  animation: coverPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes coverPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 2px var(--cab-yellow), 0 4px 12px rgba(0,0,0,0.6); }
+  100% { transform: scale(1.05); box-shadow: 0 0 16px var(--cab-yellow-glow), 0 8px 20px rgba(0,0,0,0.8); }
+}
+
+/* Hide YouTube video element completely so ONLY album cover art thumbnail is displayed */
+#yt {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Track Metadata Info */
+.meta-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #FFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+}
+
+.artist-name {
+  font-size: 14px;
+  color: var(--cab-yellow);
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* Action Controls Buttons */
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-ctrl {
+  background: #252936;
+  border: 1px solid #3d4356;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #FFF;
+  font-size: 16px;
+  box-shadow: 0 4px 0 #12141c, 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.btn-ctrl:hover {
+  background: #32384a;
+  color: var(--cab-yellow);
+}
+
+.btn-ctrl:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #12141c;
+}
+
+/* Engine Start Play Button */
+.btn-play {
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, #FFC800, #E69D00);
+  border: 2px solid #FFF;
+  color: #101216;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #996900, 0 6px 15px rgba(255, 200, 0, 0.4);
+}
+
+.btn-play:hover {
+  background: linear-gradient(135deg, #FFD433, #FFB800);
+  color: #000;
+  box-shadow: 0 4px 0 #996900, 0 0 20px rgba(255, 200, 0, 0.7);
+}
+
+/* Track Progress Bar */
+.progress-bar-wrap {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: #9aa2b8;
+}
+
+.track-line {
+  flex: 1;
+  height: 10px;
+  border-radius: 6px;
+  background: #0d0f14;
+  border: 1px solid #232734;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #FF9900, #FFC800);
+  box-shadow: 0 0 10px var(--cab-yellow-glow);
+  transition: width 0.1s linear;
+}
+
+/* Bottom Cab Bumper Stickers / Mudflaps */
+.cab-bumper-stickers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.sticker {
+  background: #0d0e12;
+  border: 1px solid #2a2e3d;
+  color: var(--cab-yellow);
+  font-family: 'Mukta', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  letter-spacing: 0.05em;
+}
+
+/* Horn Easter Egg Button */
+.horn-btn-wrap {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.horn-btn {
+  background: rgba(255, 200, 0, 0.12);
+  border: 1px solid var(--cab-yellow);
+  color: var(--cab-yellow);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.horn-btn:hover {
+  background: var(--cab-yellow);
+  color: #000;
+  box-shadow: 0 0 16px var(--cab-yellow-glow);
+}
+
+.horn-btn:active {
+  transform: scale(0.96);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 540px) {
+  header {
+    padding: 12px 16px;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+
+  .hero-title h1 {
+    font-size: 42px;
+  }
+
+  .cab-bumper-stickers {
+    display: none;
+  }
+
+  .meter-hud {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .hud-value {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>बस वाला 🚌</title>
+  <meta name="description" content="Bus wale bhaiya ki highway playlist — chalte rahein, gaate rahein." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Sky -->
+  <div class="sky-bg" id="skyBg"></div>
+  <div id="stars"></div>
+  <div class="moon"></div>
+
+
+  <!-- ══ BUS (front faces LEFT, moves right→left) ══ -->
+  <div class="bus-wrap" id="busWrap">
+    <svg class="bus-svg" viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Body main gradient -->
+        <linearGradient id="bodyTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#f88030"/>
+          <stop offset="50%"  stop-color="#e06010"/>
+          <stop offset="100%" stop-color="#b84000"/>
+        </linearGradient>
+        <!-- Lower body darker -->
+        <linearGradient id="bodyBot" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#c84808"/>
+          <stop offset="100%" stop-color="#962800"/>
+        </linearGradient>
+        <!-- Roof gradient -->
+        <linearGradient id="roofG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#ffa040"/>
+          <stop offset="100%" stop-color="#e07020"/>
+        </linearGradient>
+        <!-- Window glass -->
+        <linearGradient id="glassG" x1="0" y1="0" x2="0.3" y2="1">
+          <stop offset="0%"   stop-color="#d0f0ff"/>
+          <stop offset="40%"  stop-color="#90d8f8"/>
+          <stop offset="100%" stop-color="#50a8d8"/>
+        </linearGradient>
+        <!-- Windshield glass -->
+        <linearGradient id="windG" x1="0" y1="0" x2="0.5" y2="1">
+          <stop offset="0%"   stop-color="#e0f8ff"/>
+          <stop offset="100%" stop-color="#70c8f0"/>
+        </linearGradient>
+        <!-- Wheel rubber -->
+        <radialGradient id="tireG" cx="0.38" cy="0.32" r="0.65">
+          <stop offset="0%"   stop-color="#3a3a3a"/>
+          <stop offset="100%" stop-color="#0a0a0a"/>
+        </radialGradient>
+        <!-- Headlight glow -->
+        <radialGradient id="hlGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%"   stop-color="#fff5a0"/>
+          <stop offset="70%"  stop-color="#ffd840" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#ffc000" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Front face panel -->
+        <linearGradient id="frontG" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#c04808"/>
+          <stop offset="100%" stop-color="#d85010"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ── SHADOW ── -->
+      <ellipse cx="352" cy="222" rx="306" ry="11" fill="rgba(0,0,0,0.32)"/>
+
+      <!-- ── ROOF ── -->
+      <rect x="32" y="18" width="640" height="26" rx="10" fill="url(#roofG)"/>
+      <!-- Roof AC unit / luggage -->
+      <rect x="120" y="12" width="420" height="12" rx="4" fill="#d06018"/>
+      <rect x="130" y="14" width="400" height="6"  rx="3" fill="#e07828" opacity="0.6"/>
+      <!-- Roof highlight -->
+      <rect x="40" y="20" width="600" height="8" rx="4" fill="rgba(255,255,255,0.22)"/>
+
+      <!-- ── MAIN BODY ── -->
+      <!-- Upper half -->
+      <rect x="20" y="38" width="658" height="88" rx="0" fill="url(#bodyTop)"/>
+      <!-- Lower half -->
+      <rect x="20" y="126" width="658" height="68" rx="0" fill="url(#bodyBot)"/>
+      <!-- Body corners -->
+      <rect x="20" y="38"  width="658" height="156" rx="12" fill="none"
+            stroke="rgba(0,0,0,0.15)" stroke-width="3"/>
+
+      <!-- Decorative WHITE stripe between upper/lower -->
+      <rect x="20" y="122" width="658" height="6" fill="#fff" opacity="0.18"/>
+
+      <!-- ── FRONT SECTION (LEFT) ── -->
+      <!-- Front face -->
+      <rect x="20" y="38" width="92" height="156" rx="12" fill="url(#frontG)"/>
+      <!-- Windshield -->
+      <path d="M 26,46 L 104,44 L 104,108 L 26,110 Z" fill="url(#windG)" opacity="0.9"/>
+      <!-- Windshield center divider -->
+      <line x1="65" y1="44" x2="65" y2="110" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+      <!-- Windshield top chrome frame -->
+      <line x1="26" y1="46" x2="104" y2="44" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+      <!-- Wiper -->
+      <path d="M 34,105 Q 65,102 96,104" fill="none" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Windshield inner reflection -->
+      <path d="M 30,50 L 62,48 L 62,62 L 30,64 Z" fill="#fff" opacity="0.12"/>
+
+      <!-- Destination board -->
+      <rect x="22" y="26" width="80" height="16" rx="5" fill="#0c0820"/>
+      <text x="62" y="38" font-family="Hind,sans-serif" font-size="9"
+            fill="#ffca28" text-anchor="middle" font-weight="700">बस वाला एक्सप्रेस</text>
+
+      <!-- Headlights (double) -->
+      <rect x="22" y="116" width="44" height="16" rx="5" fill="#fff8a0"/>
+      <rect x="22" y="116" width="44" height="16" rx="5" fill="url(#hlGlow)"/>
+      <rect x="22" y="116" width="20" height="16" rx="5" fill="rgba(255,255,255,0.3)"/>
+      <!-- Headlight separator -->
+      <line x1="43" y1="117" x2="43" y2="131" stroke="#d06010" stroke-width="1.5"/>
+
+      <!-- Front fog light -->
+      <rect x="22" y="136" width="24" height="9" rx="3" fill="#ff9900" opacity="0.85"/>
+
+      <!-- Front bumper -->
+      <rect x="20" y="174" width="92" height="18" rx="5" fill="#7a1e00"/>
+      <!-- Bumper grill -->
+      <line x1="36" y1="175" x2="36" y2="191" stroke="#9a2c08" stroke-width="2.5"/>
+      <line x1="52" y1="175" x2="52" y2="191" stroke="#9a2c08" stroke-width="2.5"/>
+      <line x1="68" y1="175" x2="68" y2="191" stroke="#9a2c08" stroke-width="2.5"/>
+      <line x1="84" y1="175" x2="84" y2="191" stroke="#9a2c08" stroke-width="2.5"/>
+      <line x1="100" y1="175" x2="100" y2="191" stroke="#9a2c08" stroke-width="2.5"/>
+
+      <!-- ── WINDOWS ── -->
+      <!-- 6 windows with glass effect -->
+      <rect x="108" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.92"/>
+      <rect x="196" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.92"/>
+      <rect x="284" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.9"/>
+      <rect x="372" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.92"/>
+      <rect x="460" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.92"/>
+      <rect x="548" y="44" width="76" height="54" rx="7" fill="url(#glassG)" opacity="0.85"/>
+
+      <!-- Window frames (dark border) -->
+      <rect x="108" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="2"/>
+      <rect x="196" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="2"/>
+      <rect x="284" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="2"/>
+      <rect x="372" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="2"/>
+      <rect x="460" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="2"/>
+      <rect x="548" y="44" width="76" height="54" rx="7" fill="none" stroke="#c04808" stroke-width="1.5"/>
+
+      <!-- Window glass shine (top-left corner) -->
+      <rect x="113" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.38"/>
+      <rect x="201" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.38"/>
+      <rect x="289" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.38"/>
+      <rect x="377" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.38"/>
+      <rect x="465" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.38"/>
+      <rect x="553" y="49" width="26" height="11" rx="4" fill="#fff" opacity="0.32"/>
+
+      <!-- Window lower tint -->
+      <rect x="108" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+      <rect x="196" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+      <rect x="284" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+      <rect x="372" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+      <rect x="460" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+      <rect x="548" y="80" width="76" height="18" rx="0" fill="rgba(0,50,80,0.18)"/>
+
+      <!-- ── SIDE DOOR (near rear) ── -->
+      <rect x="604" y="104" width="40" height="68" rx="6" fill="#a83808" opacity="0.72"/>
+      <!-- Door panel lines -->
+      <line x1="624" y1="106" x2="624" y2="170" stroke="#902800" stroke-width="1.5" opacity="0.7"/>
+      <line x1="606" y1="136" x2="642" y2="136" stroke="#902800" stroke-width="1.5" opacity="0.7"/>
+      <!-- Door handle -->
+      <rect x="638" y="130" width="5" height="20" rx="2.5" fill="#ffca28"/>
+      <!-- Step -->
+      <rect x="604" y="170" width="40" height="6" rx="2" fill="#7a1e00"/>
+
+      <!-- ── REAR (RIGHT) ── -->
+      <!-- Rear panel overhang -->
+      <rect x="654" y="38" width="24" height="156" rx="12" fill="#b84008"/>
+      <!-- Tail lights -->
+      <rect x="672" y="56"  width="5" height="30" rx="2.5" fill="#ff2200" opacity="0.95"/>
+      <rect x="672" y="92"  width="5" height="20" rx="2.5" fill="#ff7700" opacity="0.85"/>
+      <!-- Rear reflector -->
+      <rect x="666" y="150" width="10" height="8" rx="2" fill="#fff" opacity="0.7"/>
+
+      <!-- ── HORN OK PLEASE ── -->
+      <rect x="20" y="148" width="658" height="26" fill="#ffca28"/>
+      <!-- Band shine -->
+      <rect x="20" y="148" width="658" height="10" fill="rgba(255,255,255,0.15)"/>
+      <text x="350" y="165" font-family="Hind,sans-serif" font-size="14" font-weight="800"
+            fill="#7a3a00" text-anchor="middle" letter-spacing="3">🎵  HORN  OK  PLEASE  🎵</text>
+
+      <!-- ── BOTTOM BODY & SKIRT ── -->
+      <rect x="20" y="174" width="658" height="16" fill="#7a1e00"/>
+      <!-- Skirt highlight -->
+      <rect x="20" y="174" width="658" height="4" fill="rgba(255,255,255,0.1)"/>
+
+      <!-- ── NUMBER PLATE ── -->
+      <rect x="268" y="178" width="128" height="16" rx="3" fill="#fff" stroke="#ccc" stroke-width="0.8"/>
+      <text x="332" y="190" font-family="Hind,sans-serif" font-size="10" font-weight="700"
+            fill="#111" text-anchor="middle">UP 32 BW 2024</text>
+
+      <!-- ── WHEEL ARCHES (cutouts) ── -->
+      <ellipse cx="144" cy="196" rx="50" ry="18" fill="#5a1400"/>
+      <ellipse cx="534" cy="196" rx="46" ry="16" fill="#5a1400"/>
+      <ellipse cx="606" cy="196" rx="42" ry="16" fill="#5a1400"/>
+
+      <!-- ── FRONT WHEEL ── -->
+      <g>
+        <circle cx="144" cy="200" r="30" fill="url(#tireG)"/>
+        <!-- Tire treads -->
+        <circle cx="144" cy="200" r="30" fill="none" stroke="#2a2a2a" stroke-width="4"/>
+        <circle cx="144" cy="200" r="22" fill="#262626"/>
+        <circle cx="144" cy="200" r="14" fill="#333"/>
+        <!-- Hubcap -->
+        <circle cx="144" cy="200" r="10" fill="#888" stroke="#aaa" stroke-width="1"/>
+        <circle cx="144" cy="200" r="5"  fill="#e8520a"/>
+        <!-- Spokes -->
+        <line x1="144" y1="170" x2="144" y2="230" stroke="#666" stroke-width="3"/>
+        <line x1="114" y1="200" x2="174" y2="200" stroke="#666" stroke-width="3"/>
+        <line x1="123" y1="179" x2="165" y2="221" stroke="#666" stroke-width="2.5"/>
+        <line x1="165" y1="179" x2="123" y2="221" stroke="#666" stroke-width="2.5"/>
+        <!-- Tire shine -->
+        <path d="M 120,176 A 30 30 0 0 1 168,176" fill="none" stroke="#555" stroke-width="4" opacity="0.4"/>
+        <animateTransform attributeName="transform" attributeType="XML"
+          type="rotate" from="0 144 200" to="360 144 200" dur="0.5s" repeatCount="indefinite"/>
+      </g>
+
+      <!-- ── REAR WHEEL 1 ── -->
+      <g>
+        <circle cx="534" cy="200" r="28" fill="url(#tireG)"/>
+        <circle cx="534" cy="200" r="28" fill="none" stroke="#2a2a2a" stroke-width="4"/>
+        <circle cx="534" cy="200" r="20" fill="#262626"/>
+        <circle cx="534" cy="200" r="13" fill="#333"/>
+        <circle cx="534" cy="200" r="9"  fill="#888" stroke="#aaa" stroke-width="1"/>
+        <circle cx="534" cy="200" r="5"  fill="#e8520a"/>
+        <line x1="534" y1="172" x2="534" y2="228" stroke="#666" stroke-width="3"/>
+        <line x1="506" y1="200" x2="562" y2="200" stroke="#666" stroke-width="3"/>
+        <line x1="514" y1="180" x2="554" y2="220" stroke="#666" stroke-width="2.5"/>
+        <line x1="554" y1="180" x2="514" y2="220" stroke="#666" stroke-width="2.5"/>
+        <path d="M 512,178 A 28 28 0 0 1 556,178" fill="none" stroke="#555" stroke-width="4" opacity="0.4"/>
+        <animateTransform attributeName="transform" attributeType="XML"
+          type="rotate" from="0 534 200" to="360 534 200" dur="0.5s" repeatCount="indefinite"/>
+      </g>
+
+      <!-- ── REAR WHEEL 2 (dual axle) ── -->
+      <g>
+        <circle cx="606" cy="200" r="26" fill="url(#tireG)"/>
+        <circle cx="606" cy="200" r="26" fill="none" stroke="#2a2a2a" stroke-width="4"/>
+        <circle cx="606" cy="200" r="18" fill="#262626"/>
+        <circle cx="606" cy="200" r="11" fill="#333"/>
+        <circle cx="606" cy="200" r="8"  fill="#888" stroke="#aaa" stroke-width="1"/>
+        <circle cx="606" cy="200" r="4"  fill="#e8520a"/>
+        <line x1="606" y1="174" x2="606" y2="226" stroke="#666" stroke-width="3"/>
+        <line x1="580" y1="200" x2="632" y2="200" stroke="#666" stroke-width="3"/>
+        <line x1="587" y1="181" x2="625" y2="219" stroke="#666" stroke-width="2.5"/>
+        <line x1="625" y1="181" x2="587" y2="219" stroke="#666" stroke-width="2.5"/>
+        <animateTransform attributeName="transform" attributeType="XML"
+          type="rotate" from="0 606 200" to="360 606 200" dur="0.5s" repeatCount="indefinite"/>
+      </g>
+
+    </svg>
+
+    <!-- Exhaust puffs (rear = RIGHT side) -->
+    <div class="exhaust">
+      <div class="puff p1"></div>
+      <div class="puff p2"></div>
+      <div class="puff p3"></div>
+    </div>
+  </div>
+
+      </g>
+
+      <!-- ── REAR WHEEL 2 (dual axle) ── -->
+      <g>
+        <circle cx="456" cy="184" r="27" fill="#181818"/>
+        <circle cx="456" cy="184" r="19" fill="#2b2b2b"/>
+        <circle cx="456" cy="184" r="9"  fill="#3e3e3e"/>
+        <circle cx="456" cy="184" r="4"  fill="#e8520a"/>
+        <line x1="456" y1="157" x2="456" y2="211" stroke="#555" stroke-width="2.5"/>
+        <line x1="429" y1="184" x2="483" y2="184" stroke="#555" stroke-width="2.5"/>
+        <line x1="437" y1="165" x2="475" y2="203" stroke="#555" stroke-width="2"/>
+        <line x1="475" y1="165" x2="437" y2="203" stroke="#555" stroke-width="2"/>
+        <animateTransform attributeName="transform" attributeType="XML"
+          type="rotate" from="0 456 184" to="360 456 184" dur="0.45s" repeatCount="indefinite"/>
+      </g>
+
+    </svg>
+
+    <!-- Exhaust puffs (rear = RIGHT side) -->
+    <div class="exhaust">
+      <div class="puff p1"></div>
+      <div class="puff p2"></div>
+      <div class="puff p3"></div>
+    </div>
+  </div>
+
+  <!-- Top bar -->
+  <button class="horn-btn" id="hornBtn">
+    <span>📯</span><span>Horn ok please!</span>
+  </button>
+  <div class="highway-info">
+    <div class="green-dot"></div>
+    <span id="kmVal">649</span>&nbsp;on the highway
+  </div>
+  <button class="settings-btn">⚙️</button>
+
+  <!-- Title -->
+  <div class="title-wrap">
+    <h1 class="title-hi">बस वाला</h1>
+  </div>
+
+  <!-- Shayari — one at a time, same spot, fade in/out -->
+  <div class="shayari-wrap">
+    <p class="shayari-text" id="shayariText"></p>
+  </div>
+
+  <!-- Music Player Card -->
+  <div class="player-card" id="playerCard">
+    <div class="controls">
+      <button class="cb" id="btnShuffle" title="Shuffle">🔀</button>
+      <button class="cb" id="btnPrev"    title="Pehla">⏮</button>
+      <button class="pb" id="btnPlay"    title="Play">▶</button>
+      <button class="cb" id="btnNext"    title="Agla">⏭</button>
+      <button class="cb" id="btnRepeat"  title="Repeat">🔁</button>
+    </div>
+
+    <div class="vinyl" id="vinyl">
+      <div class="vinyl-inner"></div>
+    </div>
+
+    <div class="player-main">
+      <div class="meta-row">
+        <div class="song-meta">
+          <div class="song-name" id="songName">Loading...</div>
+          <div class="song-by" id="songBy">YouTube Playlist</div>
+        </div>
+        <div class="wavebars" id="wavebars">
+          <div class="wb"></div><div class="wb"></div>
+          <div class="wb"></div><div class="wb"></div>
+          <div class="wb"></div>
+        </div>
+      </div>
+      <div class="prog-row">
+        <span id="tCurr">0:00</span>
+        <div class="prog-wrap" id="progWrap">
+          <div class="prog-fill"  id="progFill"></div>
+          <div class="prog-thumb" id="progThumb"></div>
+        </div>
+        <span id="tTotal">0:00</span>
+      </div>
+    </div>
+
+    <div class="vol-row">
+      <span>🔈</span>
+      <input type="range" id="volSlider" min="0" max="100" value="70" class="vol-range"/>
+      <span>🔊</span>
+    </div>
+  </div>
+
+  <!-- Hidden YouTube Player -->
+  <div id="yt-container"><div id="yt-player"></div></div>
+
+  <!-- Horn ripple -->
+  <div id="hornRipple"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
